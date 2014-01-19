@@ -25,6 +25,7 @@
   "homepage": "https://github.com/nodejitsu/smart-private-npm",
   "dependencies": {
     "director": "~1.2.2",
-    "http-proxy": "~1.0.1"
+    "http-proxy": "~1.0.1",
+    "request": "~2.33.0"
   }
 }
