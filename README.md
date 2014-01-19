@@ -1,4 +1,3 @@
-npm-smart-proxy
-===============
+# smart-private-npm
 
 An intelligent routing proxy for npm with support for: private, whitelisted, and blacklisted packaged
