@@ -84,6 +84,6 @@ In order to get your `smart-private-npm` setup you'll need to decide on a policy
 
 Both the sets of whitelisted and blacklisted packages are read from on start time and require updating from the caller.
 
-#### License: Apache2
-#### Author: [Nodejitsu Inc.](https://nodejitsu.com)
-#### Contributors: [Charlie Robbins](https://github.com/indexzero), [Jarrett Cruger](https://github.com/jcrugzz)
+##### License: Apache2
+##### Author: [Nodejitsu Inc.](https://nodejitsu.com)
+##### Contributors: [Charlie Robbins](https://github.com/indexzero), [Jarrett Cruger](https://github.com/jcrugzz)
