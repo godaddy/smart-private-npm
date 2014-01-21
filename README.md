@@ -2,6 +2,9 @@
 
 An intelligent routing proxy for npm with support for: private, whitelisted, and blacklisted packaged
 
+* [Sample Usage](#sample-usage)
+* [Understanding a policy](#understanding-a-policy)
+
 ## Sample Usage
 
 _n.b. Default CouchDB rewrites automatically loaded from [config/rewrites.js](https://github.com/nodejitsu/smart-private-npm/blob/master/config/rewrites.js)._
@@ -70,6 +73,16 @@ _n.b. Default CouchDB rewrites automatically loaded from [config/rewrites.js](ht
     console.log('Private npm running on %j servers.', Object.keys(servers));
   });
 ```
+
+## Understanding a Policy
+
+In order to get your `smart-private-npm` setup you'll need to decide on a policy for your users, which are assumed to be authenticated by the [CouchDB and the npm CouchApp](http://github.com/npm/npmjs.org). A policy is composed of:
+
+* **Private:** This is the set of "known private packages" which _are always proxied to your private CouchDB server._ All new `publish` requests are also proxied to your private CouchDB server.
+* **Blacklist:** These packages are explicitly forbidden to be retrieved from the public npm. _It is possible for a package to be both private and blacklisted._ This is how you can take ownership over a given module.
+* **Whitelist:** If set, _**only**_ these packages (and all private npm packages) will be permitted from the public npm registry.
+
+Both the sets of whitelisted and blacklisted packages are read from on start time and require updating from the caller.
 
 #### License: Apache2
 #### Author: [Nodejitsu Inc.](https://nodejitsu.com)
