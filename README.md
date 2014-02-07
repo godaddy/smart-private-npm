@@ -23,7 +23,15 @@ _n.b. Default CouchDB rewrites automatically loaded from [config/rewrites.js](ht
     //
     rewrites: require('./config/rewrites'),
     proxy: {
-      npm: url.parse('http://user:pass@registry.nodejitsu.com'),
+      //
+      // This can optionally just be a single url.parsed URL or an array to
+      // cycle through. Optionally you can also have an array of url.parsed urls
+      // as well
+      //
+      npm: {
+        read: url.parse('http://user:pass@registry.nodejitsu.com'),
+        write: url.parse('https://registry.npmjs.org')
+      },
       policy: {
         npm: url.parse('http://user:pass@private.registry.nodejitsu.com'),
         private: {
