@@ -4,7 +4,8 @@
   "description": "An intelligent routing proxy for npm with support for: private, whitelisted, and blacklisted packaged ",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm install --reg http://localhost:2618"
+    "test": "node test/test.js",
+    "cover": "./scripts/cover.sh && ./scripts/results.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,8 @@
     "director": "~1.2.2",
     "http-proxy": "~1.0.1",
     "request": "~2.33.0"
+  },
+  "devDependencies": {
+    "mocha": "^1.18.2"
   }
 }
