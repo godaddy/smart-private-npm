@@ -63,12 +63,12 @@ _n.b. Default CouchDB rewrites automatically loaded from [config/rewrites.js](ht
     //
     // Server options (from "create-servers")
     //
-    http: 80
+    http: 80,
     https: {
       port: 443,
       root: '/path/to/your/ssl/files',
       key: 'your-ssl.key',  // or .pem
-      key: 'your-ssl.cert', // or .pem
+      cert: 'your-ssl.cert' // or .pem
     }
   };
 
