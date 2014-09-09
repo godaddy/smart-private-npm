@@ -1,5 +1,8 @@
 # smart-private-npm
 
+[![build
+status](https://secure.travis-ci.org/nodejitsu/smart-private-npm.png)](http://travis-ci.org/nodejitsu/smart-private-npm)
+
 An intelligent routing proxy for npm with support for: private, whitelisted, and blacklisted packages.
 
 * [Sample Usage](#sample-usage)
