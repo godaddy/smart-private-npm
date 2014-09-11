@@ -1,0 +1,12 @@
+Usage: smart-registry-npm [options]
+
+Options:
+  -P, --private <url>     Set the private registry url
+  -p, --public <url>      Set the public registry url
+  -c, --config <path>     Path to the configuration file
+  -e, --exclude <pkg>     Exclude <pkg> from being private
+  -l, --loglevel          Set the log level
+  -t, --transparent       Enable transparent mode, always forwarding to
+                          the public registry
+  -i, --ignore-private    Ignore the private packages
+  -h, --help              This help message
