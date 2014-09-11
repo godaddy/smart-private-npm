@@ -116,7 +116,7 @@ getPkgs(config.private, function(err, pkgs) {
   if (err) {
     if (err.code && err.code === 'ECONNREFUSED') {
       log.error('Error loading private packages', err.message);
-      log.error('Is your private registry running and accessible at [%j]?', config.private);
+      log.error('Is your private registry running and accessible at [%s]?', config.private);
     } else {
       log.error('Error loading private packages', { err: err });
     }
