@@ -5,8 +5,8 @@ var defaultConfig = require('../config/default'),
     snpm = require('../lib'),
     url = require('url'),
     fs = require('fs'),
-    path = require('path'),
-    getPkgs = require('npm-registry-packages');
+    path = require('path')
+    util = require('util');
 
 process.title = 'smart-private-npm';
 
@@ -39,46 +39,15 @@ if (argv.help) {
 // TODO: Replace with diagnostic
 var winston = require('winston');
 
-var log = new winston.Logger({
+var config = argv.config ? require(path.resolve(process.cwd(), argv.config)) : {};
+
+var log = config.log = config.log || new winston.Logger({
   transports: [
     new (winston.transports.Console)({ level: argv.loglevel, colorize: true })
   ]
 });
 
-var config = argv.config ? require(path.resolve(process.cwd(), argv.config)) : {};
-
 config.ip = argv.i;
-
-//
-// TODO: A better way of merging the defaults with the cli flags
-// taking precendence
-//
-config.private = argv.private || config.private || defaultConfig.private;
-
-config.public = argv.public || config.public || defaultConfig.public;
-
-config.http = config.http || defaultConfig.http;
-
-config.https = config.https || null;
-
-config.exclude = argv.exclude || config.exclude || defaultConfig.exclude;
-
-config.rewrites = config.rewrites || require('../config/rewrites');
-
-config.transparent = argv.transparent || config.transparent || false;
-
-
-if (argv.config) {
-  log.verbose('config => %s', argv.config);
-}
-log.verbose('private registry => %s', config.private);
-log.verbose('public registry => %s', config.public);
-log.verbose('http => %s', ''+config.http);
-log.verbose('https => '+(config.https ? config.https : 'null'));
-log.verbose('excludes =>', config.exclude);
-log.verbose('transparent =>', config.transparent);
-log.verbose('ignore-private =>', config.ip);
-
 
 if (typeof config.public === "string") {
   config.public = url.parse(config.public);
@@ -87,32 +56,38 @@ if (typeof config.private === "string") {
   config.private = url.parse(config.private);
 }
 
-var proxyOpts = {
-  rewrites: config.rewrites,
+var snpmOpts = {
+  rewrites: null,
   proxy: {
-    npm: config.public,
+    npm: null,
     policy: {
-      npm: config.private,
+      npm: null,
       private: {},
       blacklist: {},
-      transparent: config.transparent
+      transparent: false
     },
-    log: log
+    log: null
   },
-  http: config.http,
-  https: config.https,
-  log: log
+  http: null,
+  https: null,
+  log: null
 };
 
-if (config.blacklist) {
-  proxyOpts.proxy.policy.blacklist = config.blacklist;
-}
+snpmOpts = util._extend(snpmOpts, defaultConfig, config, argv);
+delete snpmOpts.config;
 
-if (config.whitelist) {
-  proxyOpts.proxy.policy.whitelist = config.whitelist;
+if (argv.config) {
+  log.verbose('config => %s', argv.config);
 }
+log.verbose('private registry => %s', snpmOpts.proxy.policy.npm);
+log.verbose('public registry => %s', snpmOpts.npm);
+log.verbose('http => %s', ''+snpmOpts.http);
+log.verbose('https => '+(snpmOpts.https ? snpmOpts.https : 'null'));
+log.verbose('excludes =>', snpmOpts.exclude);
+log.verbose('transparent =>', snpmOpts.proxy.transparent);
+log.verbose('ignore-private =>', snpmOpts.ip);
 
-if (config.ip === true) {
+if (snpmOpts.ip === true) {
   getPkgs = function(a, cb) {
     process.nextTick(function() {
       cb(null, []);
@@ -120,11 +95,11 @@ if (config.ip === true) {
   };
 }
 
-getPkgs(config.private.href, function(err, pkgs) {
+snpm.getPkgs(snpmOpts, function(err, privatePkgs) {
   if (err) {
     if (err.code && err.code === 'ECONNREFUSED') {
       log.error('Error loading private packages', err.message);
-      log.error('Is your private registry running and accessible at [%s]?', config.private);
+      log.error('Is your private registry running and accessible at [%s]?', snpmOpts.proxy.policy.npm);
     } else {
       log.error('Error loading private packages', { err: err });
     }
@@ -132,35 +107,8 @@ getPkgs(config.private.href, function(err, pkgs) {
     return process.exit(1);
   }
 
-  if (!config.filter) {
-    pkgs = pkgs.filter(function(f) {
-      return (!(~config.exclude.indexOf(f)));
-    });
-  }
-
-  var privatePkgs = {},
-      len = pkgs.length;
-
-  if (!config.ip) {
-    for (var i=0; i<len; i++) {
-      var pkg = pkgs[i];
-      privatePkgs[pkg] = 1;
-    }
-
-    config.exclude.forEach(function(e) {
-      log.verbose('excluding package: '+e);
-      if (privatePkgs.hasOwnProperty(e)) {
-        delete privatePkgs[e];
-      }
-    });
-
-    log.verbose('loaded private packages', privatePkgs);
-  } else {
-    log.verbose('ignoring packages from private registry');
-  }
-
-  proxyOpts.proxy.policy.private = privatePkgs;
-  snpm.createServer(proxyOpts, function(err, servers) {
+  snpmOpts.proxy.policy.private = privatePkgs;
+  snpm.createServer(snpmOpts, function(err, servers) {
     if (err) {
       log.error('error starting private npm', { err: err });
       log.error('servers: %j', Object.keys(servers));
