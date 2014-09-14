@@ -79,12 +79,20 @@ log.verbose('excludes =>', config.exclude);
 log.verbose('transparent =>', config.transparent);
 log.verbose('ignore-private =>', config.ip);
 
+
+if (typeof config.public === "string") {
+  config.public = url.parse(config.public);
+}
+if (typeof config.private === "string") {
+  config.private = url.parse(config.private);
+}
+
 var proxyOpts = {
   rewrites: config.rewrites,
   proxy: {
-    npm: url.parse(config.public),
+    npm: config.public,
     policy: {
-      npm: url.parse(config.private),
+      npm: config.private,
       private: {},
       blacklist: {},
       transparent: config.transparent
@@ -112,7 +120,7 @@ if (config.ip === true) {
   };
 }
 
-getPkgs(config.private, function(err, pkgs) {
+getPkgs(config.private.href, function(err, pkgs) {
   if (err) {
     if (err.code && err.code === 'ECONNREFUSED') {
       log.error('Error loading private packages', err.message);
