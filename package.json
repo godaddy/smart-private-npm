@@ -1,6 +1,6 @@
 {
   "name": "smart-private-npm",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "An intelligent routing proxy for npm with support for: private, whitelisted, and blacklisted packaged ",
   "main": "lib/index.js",
   "scripts": {
