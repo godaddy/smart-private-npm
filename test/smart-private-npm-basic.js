@@ -94,10 +94,20 @@ describe('smart-private-npm basic', function() {
   describe('list functions', function() {
     describe('GET', function() {
       var paths = common.list.get
+        , users = common.list.users;
       paths.forEach(function(p) {
-        it('should proxy to public registry', function(done) {
+        it(p + ' should proxy to private registry', function(done) {
           var opts = {
             uri: common.host + p,
+            json: true
+          }
+          request.get(opts, common.privateOk(done))
+        })
+      })
+      users.forEach(function (u) {
+        it(u + ' should proxy to public registry', function(done) {
+          var opts = {
+            uri: common.host + u,
             json: true
           }
           request.get(opts, common.publicOk(done))
@@ -108,7 +118,7 @@ describe('smart-private-npm basic', function() {
     describe('PUT', function() {
       var paths = common.list.put
       paths.forEach(function(p) {
-        it('should proxy to public registry', function(done) {
+        it(p + ' should proxy to public registry', function(done) {
           var opts = {
             uri: common.host + p,
             json: true,

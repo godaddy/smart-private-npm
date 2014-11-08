@@ -140,12 +140,14 @@ exports.list = {
     , '/-/needbuild'
     , '/-/prebuilt'
     , '/-/nonlocal'
-    , '/-/by-user/user_blah'
-    , '/-/starred-by-user/user_blah'
-    , '/-/starred-by-package/user_blah'
     , '/-/_view/all'
     , '/-/_list/all'
     , '/-/_show/all'
+  ],
+  users: [
+      '/-/by-user/user_blah'
+    , '/-/starred-by-user/user_blah'
+    , '/-/starred-by-package/user_blah'
     , '/-/users'
     , '/-/user/user_blah'
     , '/_users/user_blah'

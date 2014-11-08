@@ -22,6 +22,22 @@ function handle(req, res) {
     case '/wl-ok-put-priv':
     case '/_session':
     case '/priv-basic-ok/0.0.1':
+    case '/-/jsonp/jsonp_blah':
+    case '/-/all/since':
+    case '/-/rss':
+    case '/-/rss/package_blah':
+    case '/-/all':
+    case '/-/all/-/jsonp/jsonp_blah':
+    case '/-/short':
+    case '/-/scripts':
+    case '/-/by-field':
+    case '/-/fields':
+    case '/-/needbuild':
+    case '/-/prebuilt':
+    case '/-/nonlocal':
+    case '/-/_view/all':
+    case '/-/_list/all':
+    case '/-/_show/all':
       pkgOk(req, res)
       break
     case '/priv-basic-error':
