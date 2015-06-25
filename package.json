@@ -30,7 +30,7 @@
   "dependencies": {
     "create-servers": "~1.2.0",
     "director": "~1.2.2",
-    "http-proxy": "1.4.x",
+    "http-proxy": "^1.11.1",
     "minimist": "1.x",
     "npm-registry-packages": "1.x",
     "request": "~2.33.0",
