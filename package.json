@@ -31,12 +31,13 @@
     "create-servers": "~1.2.0",
     "director": "~1.2.2",
     "http-proxy": "^1.11.1",
+    "hyperquest": "~1.2.0",
     "minimist": "1.x",
     "npm-registry-packages": "1.x",
-    "request": "~2.33.0",
     "winston": "~0.7.3"
   },
   "devDependencies": {
+    "request": "~2.33.0",
     "mocha": "^1.18.2"
   }
 }
