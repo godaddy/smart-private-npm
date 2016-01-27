@@ -375,6 +375,36 @@ module.exports = [
     "method": "DELETE"
   },
   {
+    "from": "/-/package/:pkg/dist-tags",
+    "to": "/_show/distTags/:pkg",
+    "method": "GET"
+  },
+  {
+    from: "/-/package/:pkg/dist-tags/:tag",
+    to: "/_update/distTags/:pkg",
+    method: "DELETE"
+  },
+  {
+    from: "/-/package/:pkg/dist-tags/:tag",
+    to: "/_update/distTags/:pkg",
+    method: "PUT"
+  },
+  {
+    from: "/-/package/:pkg/dist-tags/:tag",
+    to: "/_update/distTags/:pkg",
+    method: "POST"
+  },
+  {
+    from: "/-/package/:pkg/dist-tags",
+    to: "/_update/distTags/:pkg",
+    method: "PUT"
+  },
+  {
+    from: "/-/package/:pkg/dist-tags",
+    to: "/_update/distTags/:pkg",
+    method: "POST"
+  },
+  {
     "from": "/-/_view/*",
     "to": "_view/*",
     "method": "GET"
