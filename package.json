@@ -22,7 +22,7 @@
     "nodejitsu"
   ],
   "author": "Nodejitsu Inc <info@nodejitsu.com>",
-  "license": "Apache2",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nodejitsu/smart-private-npm/issues"
   },
