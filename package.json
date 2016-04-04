@@ -28,16 +28,16 @@
   },
   "homepage": "https://github.com/nodejitsu/smart-private-npm",
   "dependencies": {
-    "create-servers": "~1.2.0",
+    "create-servers": "~2.0.1",
     "director": "~1.2.2",
-    "http-proxy": "^1.11.1",
-    "hyperquest": "~1.2.0",
-    "minimist": "1.x",
+    "http-proxy": "^1.13.2",
+    "hyperquest": "~1.3.0",
+    "minimist": "~1.2.0",
     "npm-registry-packages": "1.x",
-    "winston": "~0.7.3"
+    "winston": "~2.2.0"
   },
   "devDependencies": {
-    "request": "~2.33.0",
-    "mocha": "^1.18.2"
+    "request": "~2.69.0",
+    "mocha": "^2.4.5"
   }
 }
