@@ -1,4 +1,9 @@
 //
+// Default rewrites for routes
+//
+exports.rewrites = require('./rewrites');
+
+//
 // Default CouchDB documents to exclude
 //
 exports.exclude = [
@@ -9,15 +14,18 @@ exports.exclude = [
   'error: forbidden',
 ];
 
-//
-// Private npm registry url
-//
-exports.private = 'http://localhost:5984';
-
-//
-// Public npm registry url
-//
-exports.public = 'https://registry.nodejitsu.com';
+exports.proxy = {
+  //
+  // Public npm registry url
+  //
+  npm: 'https://registry.nodejitsu.com',
+  policy: {
+    //
+    // Private npm registry url
+    //
+    npm: 'http://localhost:5984'
+  }
+};
 
 //
 // Function to filter excluded documents
